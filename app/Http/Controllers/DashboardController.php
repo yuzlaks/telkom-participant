@@ -7,6 +7,7 @@ use App\Models\UserPicModel;
 use App\Models\UserPosModel;
 use App\Models\UserRegionalModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
