@@ -9,8 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('dist/img/TELKOM/favicon.ico') }}" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- DataTables -->
@@ -22,22 +21,23 @@
 </head>
 <?php
 
-    if (!empty(Auth::guard('user_regionals')->user()->username)) {
-        $username = Auth::guard('user_regionals')->user()->username;
-        $email = Auth::guard('user_regionals')->user()->email;
-    }
+if (!empty(Auth::guard('user_regionals')->user()->username)) {
+    $username = Auth::guard('user_regionals')->user()->username;
+    $email = Auth::guard('user_regionals')->user()->email;
+}
 
-    if (!empty(Auth::guard('user_pos')->user()->nama)) {
-        $username = Auth::guard('user_pos')->user()->nama;
-        $email = Auth::guard('user_pos')->user()->email;
-    }
+if (!empty(Auth::guard('user_pos')->user()->nama)) {
+    $username = Auth::guard('user_pos')->user()->nama;
+    $email = Auth::guard('user_pos')->user()->email;
+}
 
-    if (!empty(Auth::guard('user_pic')->user()->name)) {
-        $username = Auth::guard('user_pic')->user()->name;
-        $email = Auth::guard('user_pic')->user()->email;
-    }
-    
+if (!empty(Auth::guard('user_pic')->user()->name)) {
+    $username = Auth::guard('user_pic')->user()->name;
+    $email = Auth::guard('user_pic')->user()->email;
+}
+
 ?>
+
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Navbar -->
@@ -45,8 +45,7 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ url('/') }}" class="nav-link">Home</a>
@@ -63,16 +62,27 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-user mr-2"></i> {{ ucfirst($username) }}
-                        </a>
+                        <?php if (!empty(Auth::guard('user_regionals')->user()->username)) { ?>
+                            <a href="{{ route('user-regional.show', Auth::guard('user_regionals')->user()->id) }}" class="dropdown-item">
+                                <i class="fas fa-user mr-2"></i> {{ ucfirst($username) }}
+                            </a>
+                        <?php } ?>
+                        <?php if (!empty(Auth::guard('user_pic')->user()->name)) { ?>
+                            <a href="{{ route('user-pic.show', Auth::guard('user_pic')->user()->id) }}" class="dropdown-item">
+                                <i class="fas fa-user mr-2"></i> {{ ucfirst($username) }}
+                            </a>
+                        <?php } ?>
+                        <?php if (!empty(Auth::guard('user_pos')->user()->nama)) { ?>
+                            <a href="{{ route('user-pos.show', Auth::guard('user_pos')->user()->id) }}" class="dropdown-item">
+                                <i class="fas fa-user mr-2"></i> {{ ucfirst($username) }}
+                            </a>
+                        <?php } ?>
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item">
                             <i class="fas fa-envelope mr-2"></i> {{ $email }}
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item dropdown-footer" href=""
-                            onclick="event.preventDefault();
+                        <a class="dropdown-item dropdown-footer" href="" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
@@ -95,8 +105,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="" class="brand-link">
-                <img src="{{ asset('dist/img/TELKOM/hand.png') }}" alt="AdminLTE Logo"
-                    class="brand-image" style="opacity: .8">
+                <img src="{{ asset('dist/img/TELKOM/hand.png') }}" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
                 <span class="brand-text font-weight-light">My IndiHome POS</span>
             </a>
 
@@ -105,8 +114,7 @@
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('dist/img/avatar5.png') }}" class="img-circle elevation-2"
-                            alt="User Image">
+                        <img src="{{ asset('dist/img/avatar5.png') }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ ucfirst($username) }}</a>
@@ -115,8 +123,7 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                         <li class="nav-item">
                             <a href="{{ route('dashboard') }}" class="nav-link @yield('menu-dashboard')">
@@ -129,32 +136,36 @@
 
                         <li class="nav-header">Master</li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('user-regional.index') }}" class="nav-link @yield('menu-user-regional')">
-                                <i class="nav-icon fas fa-user-cog"></i>
-                                <p>
-                                    Users Regional
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('user-pic.index') }}" class="nav-link @yield('menu-user-pic')">
-                                <i class="nav-icon fas fa-user-cog"></i>
-                                <p>
-                                    Users PIC
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('user-pos.index') }}" class="nav-link @yield('menu-user-pos')">
-                                <i class="nav-icon fas fa-user-cog"></i>
-                                <p>
-                                    Users POS
-                                </p>
-                            </a>
-                        </li>
+                        <?php if (!empty(Auth::guard('user_regionals')->user()->username)) { ?>
+                            <li class="nav-item">
+                                <a href="{{ route('user-regional.index') }}" class="nav-link @yield('menu-user-regional')">
+                                    <i class="nav-icon fas fa-user-cog"></i>
+                                    <p>
+                                        Users Regional
+                                    </p>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if (!empty(Auth::guard('user_pic')->user()->name) || !empty(Auth::guard('user_regionals')->user()->username)) { ?>
+                            <li class="nav-item">
+                                <a href="{{ route('user-pic.index') }}" class="nav-link @yield('menu-user-pic')">
+                                    <i class="nav-icon fas fa-user-cog"></i>
+                                    <p>
+                                        Users PIC
+                                    </p>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if (!empty(Auth::guard('user_pos')->user()->nama) || !empty(Auth::guard('user_pic')->user()->name) || !empty(Auth::guard('user_regionals')->user()->username)) { ?>
+                            <li class="nav-item">
+                                <a href="{{ route('user-pos.index') }}" class="nav-link @yield('menu-user-pos')">
+                                    <i class="nav-icon fas fa-user-cog"></i>
+                                    <p>
+                                        Users POS
+                                    </p>
+                                </a>
+                            </li>
+                        <?php } ?>
 
                         <li class="nav-header">Transaction</li>
 
@@ -171,11 +182,11 @@
                         @can('role-list')
                         <li class="nav-item">
                             <a href="{{ route('roles.index') }}" class="nav-link @yield('menu-role')">
-                                <i class="nav-icon fas fa-shield-alt"></i>
-                                <p>
-                                    Role Management
-                                </p>
-                            </a>
+                        <i class="nav-icon fas fa-shield-alt"></i>
+                        <p>
+                            Role Management
+                        </p>
+                        </a>
                         </li>
                         @endcan
                         @can('user-list')
@@ -221,33 +232,33 @@
                         {{-- @can('product-list')
                         <li class="nav-item">
                             <a href="{{ route('products.index') }}" class="nav-link @yield('menu-product')">
-                                <i class="nav-icon fa fa-cube"></i>
-                                <p>
-                                    Product
-                                </p>
-                            </a>
+                        <i class="nav-icon fa fa-cube"></i>
+                        <p>
+                            Product
+                        </p>
+                        </a>
                         </li>
                         @endcan --}}
-                        
+
                         {{-- <li class="nav-header">Sales</li>
                         @can('pos-list')
                         <li class="nav-item">
                             <a href="{{ route('pos.index') }}" class="nav-link @yield('menu-pos')">
-                                <i class="nav-icon fa fa-cube"></i>
-                                <p>
-                                    Pos
-                                </p>
-                            </a>
+                        <i class="nav-icon fa fa-cube"></i>
+                        <p>
+                            Pos
+                        </p>
+                        </a>
                         </li>
                         @endcan --}}
                         {{-- @can('transaction-list')
                         <li class="nav-item">
                             <a href="{{ route('transaction.index') }}" class="nav-link @yield('menu-transaction')">
-                                <i class="nav-icon fas fa-suitcase"></i>
-                                <p>
-                                    Transaction
-                                </p>
-                            </a>
+                        <i class="nav-icon fas fa-suitcase"></i>
+                        <p>
+                            Transaction
+                        </p>
+                        </a>
                         </li>
                         @endcan --}}
                     </ul>
@@ -292,7 +303,7 @@
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.2.0
             </div>
-            <strong>Copyright &copy; {{ date('Y') }} <a href="">Telkom</a>.</strong> All rights
+            <strong>Copyright &copy; {{ date('Y') }} <a href="https://www.telkom.co.id" target="_blank">Telkom</a>.</strong> All rights
             reserved.
         </footer>
 
