@@ -6,6 +6,7 @@ use App\Models\UserPicModel;
 use App\Models\UserPosModel;
 use Illuminate\Http\Request;
 use Hash;
+use Illuminate\Support\Facades\URL;
 
 class UserPosController extends Controller
 {
@@ -62,6 +63,7 @@ class UserPosController extends Controller
 
     public function saveData(array $data)
     {
+        $host = URL::to('/');
         $pic = UserPicModel::where('id',$data['pic_id'])->first();
 
         $insert = UserPosModel::create([
@@ -77,9 +79,21 @@ class UserPosController extends Controller
             'url'       => ''
         ]);
 
+        $url = 'https://telkomregional5.id/shorturl/insert.php';
+
+        $txt = "url=" . $host . "/create-customer-from-user-pos/" . $insert->id;
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $txt);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $a = (array) json_decode($result);
         // after that, update column url
         UserPosModel::where('id', $insert->id)->update([
-            'url' => 'create-customer-from-user-pos/'.$insert->id
+            'url' => $a["link"]
         ]);
 
     }  

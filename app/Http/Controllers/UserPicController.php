@@ -8,6 +8,7 @@ use Hash;
 use Session;
 use App\Models\UserRegionalModel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class UserPicController extends Controller
 {
@@ -46,35 +47,51 @@ class UserPicController extends Controller
             'email'      => 'required|email|unique:user_pic',
             'password'   => 'required|min:6',
             'notel'      => 'required',
-            'regional'   => 'required',
             'witel'      => 'required',
             'datel'      => 'required',
         ]);
-           
+
         $data = $request->all();
+        // dd($data);
         $check = $this->saveData($data);
-         
+
         return redirect("user-pic")->withErrors(['msg' => 'Berhasil Tambah Data!']);
     }
 
     public function saveData(array $data)
     {
+        $host = URL::to('/');
+
         $insert = UserPicModel::create([
             'name'     => $data['name'],
             'email'    => $data['email'],
             'password' => Hash::make($data['password']),
             'notel'    => $data['notel'],
-            'regional' => $data['regional'],
+            'regional' => 'DIVRE 5',
             'witel'    => $data['witel'],
             'datel'    => $data['datel'],
             'url'      => ''
         ]);
 
+        $url = 'https://telkomregional5.id/shorturl/insert.php';
+
+        $txt = "url=" . $host . "/create-user-pos-from-user-pic/" . $insert->id;
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $txt);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $a = (array) json_decode($result);
+
+        // dd($a);
         // after that, update column url
         UserPicModel::where('id', $insert->id)->update([
-            'url' => 'create-user-pos-from-user-pic/'.$insert->id
+            'url' => $a["link"]
         ]);
-    }  
+    }
 
     /**
      * Display the specified resource.
@@ -84,7 +101,7 @@ class UserPicController extends Controller
      */
     public function show($id)
     {
-        $data = UserPicModel::where('id',$id)->first();
+        $data = UserPicModel::where('id', $id)->first();
         return view('user-pic/show', compact('data'));
     }
 
@@ -97,8 +114,8 @@ class UserPicController extends Controller
     public function edit($id)
     {
         $regional = UserRegionalModel::all();
-        $data = UserPicModel::where('id',$id)->first();
-        return view('user-pic/edit', compact('data','regional'));
+        $data = UserPicModel::where('id', $id)->first();
+        return view('user-pic/edit', compact('data', 'regional'));
     }
 
     /**
@@ -110,7 +127,7 @@ class UserPicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        UserPicModel::where('id',$id)->update([
+        UserPicModel::where('id', $id)->update([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
@@ -132,7 +149,7 @@ class UserPicController extends Controller
      */
     public function destroy($id)
     {
-        UserPicModel::where('id',$id)->delete();
+        UserPicModel::where('id', $id)->delete();
         return redirect("user-pic")->withErrors(['msg' => 'Berhasil Hapus Data!']);
     }
 }

@@ -7,6 +7,10 @@
 @endsection()
 
 @section('content')
+    <?php 
+        $username = Auth::guard('user_regionals')->user()->username;
+    ?>
+
     <div class="col-md-12">
         @if($errors->any())
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -44,6 +48,7 @@
                                 <td>{{ $user->job_title }}</td>
                                 <td>{{ $user->role }}</td>
                                 <td>
+                                    @if($username<>$user->username)
                                     <div class="btn-group" role="group">
                                         <a class="mx-1 btn btn-info" href="{{ route('user-regional.show', $user->id) }}">Show</a>
                                         <a class="mx-1 btn btn-primary" href="{{ route('user-regional.edit', $user->id) }}">Edit</a>
@@ -53,6 +58,7 @@
                                             <button type="DELETE" class="btn btn-danger">Hapus</button>
                                         </form>
                                     </div>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
