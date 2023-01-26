@@ -24,7 +24,7 @@
                       </div>
                     @endif
                     <div class="card-body">
-                        <form action="{{ route('pos.store') }}" method="POST">
+                        <form action="{{ url('store-customer') }}" method="POST">
                             @csrf
                             <input type="hidden" name="from_frontend" value="1">
                             <div class="form-group mb-3">
@@ -117,4 +117,5 @@
         </div>
     </div>
 </body>
+@include('sweetalert::alert')
 </html>

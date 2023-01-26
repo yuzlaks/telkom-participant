@@ -8,6 +8,8 @@ use App\Models\UserPosModel;
 use App\Models\UserRegionalModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DashboardController extends Controller
 {
@@ -19,5 +21,29 @@ class DashboardController extends Controller
         $pos          = PosModel::count();
 
         return view('dashboard', compact('userregional','userpic','userpos','pos'));
+    }
+
+    public function printBarcode($type, $id)
+    {
+
+        $url = "";
+        $nama = "";
+
+        if ($type == "user-pos") {
+            $userpos = UserPosModel::where('id', $id)->first();
+            $url = $userpos->url;
+            $nama = $userpos->nama;
+        }
+        
+        if ($type == "user-pic") {
+            $userpic = UserPicModel::where('id', $id)->first();
+            $nama = $userpos->name;
+            $url = $userpic->url;
+        }
+
+        $barcode = QrCode::size(400)->generate(url($url));
+
+        $pdf = PDF::loadview('cetak-barcode/index', compact('barcode','url', 'nama'));
+    	return $pdf->download('cetak-barcode.pdf');
     }
 }

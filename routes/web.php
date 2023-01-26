@@ -8,6 +8,7 @@ use App\Http\Controllers\UserPicController;
 use App\Http\Controllers\UserPosController;
 use App\Http\Controllers\UserRegionalController;
 use Illuminate\Support\Facades\Route;
+use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get('/', function () {
 
 Route::middleware('CustomAccess')->group(function(){
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
+    Route::get('cetak-barcode/{type}/{id}', [DashboardController::class, 'printBarcode'])->name('printBarcode'); 
         // user regional
     Route::resource('user-regional', UserRegionalController::class);
 
@@ -41,10 +43,13 @@ Route::middleware('CustomAccess')->group(function(){
     // ajax get regional from pic
     Route::get('pos/get_regional/{pos_id}', [PosController::class, 'getRegional']);
 
-    // dynamic QRCode
-    Route::get('create-user-pos-from-user-pic/{referal_pic}', [HomeController::class, 'createUserPos']);
-    Route::get('create-customer-from-user-pos/{referal_pos}', [HomeController::class, 'createUserCustomer']);
 });
+
+// dynamic QRCode
+Route::get('create-user-pos-from-user-pic/{referal_pic}', [HomeController::class, 'createUserPos']);
+
+Route::get('create-customer-from-user-pos/{referal_pos}', [HomeController::class, 'createUserCustomer']);
+Route::post('store-customer', [HomeController::class, 'storeCustomer']);
 
 Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 

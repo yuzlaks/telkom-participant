@@ -64,6 +64,7 @@
                             @if($username<>$user->nama)
                                 <div class="btn-group" role="group">
                                     <a class="mx-1 btn btn-info" href="{{ route('user-pos.show', $user->id) }}">Show</a>
+                                    <a title="Cetak Barcode" class="mx-1 btn btn-warning" href="{{ url('cetak-barcode/user-pos/'.$user->id) }}"><i class="fa fa-print"></i></a>
                                     <a class="mx-1 btn btn-primary" href="{{ route('user-pos.edit', $user->id) }}">Edit</a>
                                     <form action="{{ route('user-pos.destroy', $user->id) }}" method="POST">
                                         @csrf
