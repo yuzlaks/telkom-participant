@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -25,30 +24,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
+Route::middleware('CustomAccess')->group(function(){
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
+        // user regional
+    Route::resource('user-regional', UserRegionalController::class);
+
+    // user pic
+    Route::resource('user-pic', UserPicController::class);
+
+    // user pos
+    Route::resource('user-pos', UserPosController::class);
+
+    // pos
+    Route::resource('pos', PosController::class);
+
+    // ajax get regional from pic
+    Route::get('pos/get_regional/{pos_id}', [PosController::class, 'getRegional']);
+
+    // dynamic QRCode
+    Route::get('create-user-pos-from-user-pic/{referal_pic}', [HomeController::class, 'createUserPos']);
+    Route::get('create-customer-from-user-pos/{referal_pos}', [HomeController::class, 'createUserCustomer']);
+});
+
 Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
 Route::get('register', [CustomAuthController::class, 'register'])->name('register-user');
 Route::post('custom-register', [CustomAuthController::class, 'customRegister'])->name('register.custom'); 
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
-
-// user regional
-Route::resource('user-regional', UserRegionalController::class);
-
-// user pic
-Route::resource('user-pic', UserPicController::class);
-
-// user pos
-Route::resource('user-pos', UserPosController::class);
-
-// pos
-Route::resource('pos', PosController::class);
-
-// ajax get regional from pic
-Route::get('pos/get_regional/{pos_id}', [PosController::class, 'getRegional']);
-
-// dynamic url from barcode
-
-// pic
-Route::get('create-user-pos-from-user-pic/{referal_pic}', [HomeController::class, 'createUserPos']);
-Route::get('create-customer-from-user-pos/{referal_pos}', [HomeController::class, 'createUserCustomer']);
