@@ -155,6 +155,9 @@ class PosController extends Controller
     {
         $pos = UserPosModel::where('id', $pos_id)->first();
         $pic = UserPicModel::where('id', $pos->pic_id)->first();
-        echo $pic->regional;
+        // echo $pic->regional;
+
+        return response()->json($pic);
+
     }
 }

@@ -27,19 +27,19 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="">Witel</label>
-                    <input type="text" placeholder="Witel" id="witel" class="form-control"
+                    <input type="text" placeholder="Witel" id="witel" readonly class="form-control witel"
                         name="witel" required autofocus>
-                    @if ($errors->has('witel'))
+                    <!-- @if ($errors->has('witel'))
                     <span class="text-danger">{{ $errors->first('witel') }}</span>
-                    @endif
+                    @endif -->
                 </div>
                 <div class="form-group mb-3">
                     <label for="">Datel</label>
-                    <input type="text" placeholder="Datel" id="datel" class="form-control"
+                    <input type="text" placeholder="Datel" id="datel" readonly class="form-control datel"
                         name="datel" required autofocus>
-                    @if ($errors->has('datel'))
+                    <!-- @if ($errors->has('datel'))
                     <span class="text-danger">{{ $errors->first('datel') }}</span>
-                    @endif
+                    @endif -->
                 </div>
                 <div class="form-group mb-3">
                     <label for="">Order Name</label>
@@ -115,7 +115,9 @@
                 url : "/pos/get_regional/" + pos_id,
                 type : "GET",
                 success:function(res){
-                    $('.regional').val(res);
+                    $('.regional').val("DIVRE 5");
+                    $('.witel').val(res.witel);
+                    $('.datel').val(res.datel);
                 }
             });
         });
