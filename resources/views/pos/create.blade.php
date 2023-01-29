@@ -88,14 +88,6 @@
                     <span class="text-danger">{{ $errors->first('kabupaten') }}</span>
                     @endif
                 </div>
-                <div class="form-group mb-3">
-                    <label for="">Tanggal Order</label>
-                    <input type="date" placeholder="Tanggal Order" id="tgl_order" class="form-control"
-                        name="tgl_order" required autofocus>
-                    @if ($errors->has('tgl_order'))
-                    <span class="text-danger">{{ $errors->first('tgl_order') }}</span>
-                    @endif
-                </div>
                 <div class="d-grid mx-auto mt-3">
                     <button type="submit" class="btn btn-dark">Simpan</button>
                 </div>

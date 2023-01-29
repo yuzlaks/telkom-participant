@@ -35,7 +35,6 @@ class HomeController extends Controller
             'alamat'      => 'required',
             'kecamatan'   => 'required',
             'kabupaten'   => 'required',
-            'tgl_order'   => 'required',
             'pos_id'      => 'required'
         ]);
            
@@ -69,7 +68,7 @@ class HomeController extends Controller
             "alamat"      => $data['alamat'],
             "kecamatan"   => $data['kecamatan'],
             "kabupaten"   => $data['kabupaten'],
-            "tgl_order"   => $data['tgl_order'],
+            "tgl_order"   => date('Y-m-d'),
             "pos_id"      => $data['pos_id'],
             "pos_name"    => $pos->nama
         ]);
