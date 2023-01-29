@@ -18,9 +18,15 @@ class UserPosController extends Controller
      */
     public function index()
     {
-        $data = UserPosModel::paginate(10);
         $role_regional = Auth::guard('user_regionals')->user()->id ?? 0;
         $role_pic = Auth::guard('user_pic')->user()->id ?? 0;
+
+        if ($role_pic != 0) {
+            $data = UserPosModel::where('pic_id', 1)->paginate(10);
+        }else{
+            $data = UserPosModel::paginate(10);
+        }
+        
         return view('user-pos/index', compact('data','role_regional','role_pic'));
     }
 

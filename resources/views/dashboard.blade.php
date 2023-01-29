@@ -142,6 +142,8 @@
                                         </thead>
                                     </table>
                                 </div>
+                                
+                                @if (!empty($dataUser->url))
                                 <div class="col-md-6">
                                     <div>
                                         <center>
@@ -151,6 +153,7 @@
                                         </center>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>
