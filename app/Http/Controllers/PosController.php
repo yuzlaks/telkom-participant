@@ -6,6 +6,7 @@ use App\Models\PosModel;
 use App\Models\UserPicModel;
 use App\Models\UserPosModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PosController extends Controller
 {
