@@ -36,9 +36,11 @@
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Data User POS</h2>
-            <div class="pull-right" style="float:right">
-                <a class="btn btn-success" href="{{ route('user-pos.create') }}"> Create New User</a>
-            </div>
+            @if ($role_regional != 0 || $role_pic != 0)
+                <div class="pull-right" style="float:right">
+                    <a class="btn btn-success" href="{{ route('user-pos.create') }}"> Create New User</a>
+                </div>
+            @endif
         </div>
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">

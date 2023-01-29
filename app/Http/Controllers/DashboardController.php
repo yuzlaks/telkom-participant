@@ -19,8 +19,18 @@ class DashboardController extends Controller
         $userpic      = UserPicModel::count();
         $userpos      = UserPosModel::count();
         $pos          = PosModel::count();
+    
+        $dataUser = "";
 
-        return view('dashboard', compact('userregional','userpic','userpos','pos'));
+        if (!empty(Auth::guard('user_pic')->user()->id)) {
+            $dataUser = UserPicModel::where('id', Auth::guard('user_pic')->user()->id)->first();
+        }
+        
+        if (!empty(Auth::guard('user_pos')->user()->id)) {
+            $dataUser = UserPosModel::where('id', Auth::guard('user_pos')->user()->id)->first();
+        }
+
+        return view('dashboard', compact('userregional','userpic','userpos','pos','dataUser'));
     }
 
     public function printBarcode($type, $id)
