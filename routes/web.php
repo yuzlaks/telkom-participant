@@ -58,4 +58,4 @@ Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout')
 Route::get('reload-captcha', [CustomAuthController::class, 'reloadCaptcha']);
 
 // get witel
-Route::get('user-pic/get-datel/{id_witel}', [UserPicController::class, 'getDatel']);
+Route::get('get-datel/{id_witel}', [UserPicController::class, 'getDatel']);

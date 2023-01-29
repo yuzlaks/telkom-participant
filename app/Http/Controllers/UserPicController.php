@@ -119,8 +119,11 @@ class UserPicController extends Controller
     public function edit($id)
     {
         $regional = UserRegionalModel::all();
+        $witel = Witel::select('witel')
+                        ->groupBy('witel')
+                        ->get();
         $data = UserPicModel::where('id', $id)->first();
-        return view('user-pic/edit', compact('data', 'regional'));
+        return view('user-pic/edit', compact('data', 'regional','witel'));
     }
 
     /**

@@ -96,7 +96,7 @@
             $('#datel').html('');
             var id_witel = $('#witel').val();
             $.ajax({
-                url : "get-datel/"+id_witel,
+                url : "{{ url('get-datel') }}"+"/"+id_witel,
                 type : "GET",
                 success:function(res){
 

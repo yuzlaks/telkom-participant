@@ -57,22 +57,24 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="form-group mb-3">
+                    <label for="">Witel</label>
+                    <select name="witel" class="form-control" id="witel">
+                        <option value="" selected disabled>-Pilih data-</option>
+                        @foreach ($witel as $item)
+                            <option {{ ($item->witel == $data->witel) ? "selected" : "" }} value="{{ $item->witel }}">{{ $item->witel }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="form-group mb-3">
                     <label for="">Datel</label>
-                    <input value="{{ $data->datel }}" type="text" placeholder="Datel" id="datel" class="form-control"
-                        name="datel" required autofocus>
+                    <select name="datel" id="datel" class="form-control"></select>
                     @if ($errors->has('datel'))
                     <span class="text-danger">{{ $errors->first('datel') }}</span>
                     @endif
                 </div>
-                <div class="form-group mb-3">
-                    <label for="">Witel</label>
-                    <input value="{{ $data->witel }}" type="text" placeholder="Witel" id="witel" class="form-control"
-                        name="witel" required autofocus>
-                    @if ($errors->has('witel'))
-                    <span class="text-danger">{{ $errors->first('witel') }}</span>
-                    @endif
-                </div>
+
                 <div class="form-group mb-3">
                     <label for="">Url</label>
                     <input value="{{ $data->url }}" type="text" placeholder="url" id="url" class="form-control"
@@ -89,3 +91,50 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function(){
+
+            getDatel();
+
+            $('#witel').change(function(){
+                $('#datel').html('');
+                var id_witel = $('#witel').val();
+                $.ajax({
+                    url : "{{ url('get-datel') }}"+"/"+id_witel,
+                    type : "GET",
+                    success:function(res){
+
+                        var option;
+                        $.each(res, function(k,v){
+                            option += `<option>${v.datel}</option>`;
+                        })
+
+                        $('#datel').append(option);
+                        console.log(res);
+                    }
+                })
+            }) 
+        });
+
+        function getDatel() {
+            $('#datel').html('');
+                var id_witel = $('#witel').val();
+                $.ajax({
+                    url : "{{ url('get-datel') }}"+"/"+id_witel,
+                    type : "GET",
+                    success:function(res){
+
+                        var option;
+                        $.each(res, function(k,v){
+                            option += `<option>${v.datel}</option>`;
+                        })
+
+                        $('#datel').append(option);
+                        console.log(res);
+                    }
+            })
+        }
+    </script>
+@endpush
