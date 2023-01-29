@@ -38,14 +38,14 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="">Witel</label>
-                        <input type="text" placeholder="Witel" id="witel" class="form-control" name="witel" required autofocus>
+                        <input type="text" placeholder="Witel" id="witel" class="form-control" readonly value="{{ $pic->witel }}" name="witel" required autofocus>
                         @if ($errors->has('witel'))
                         <span class="text-danger">{{ $errors->first('witel') }}</span>
                         @endif
                     </div>
                     <div class="form-group mb-3">
                         <label for="">Datel</label>
-                        <input type="text" placeholder="Datel" id="datel" class="form-control" name="datel" required autofocus>
+                        <input type="text" placeholder="Datel" value="{{ $pic->datel }}" readonly id="datel" class="form-control" name="datel" required autofocus>
                         @if ($errors->has('datel'))
                         <span class="text-danger">{{ $errors->first('datel') }}</span>
                         @endif

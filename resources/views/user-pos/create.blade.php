@@ -9,6 +9,7 @@
 <?php
     $username = null;
     if (!empty(Auth::guard('user_pic')->user()->name)) {
+        $id = Auth::guard('user_pic')->user()->id;
         $username = Auth::guard('user_pic')->user()->name;
         $email = Auth::guard('user_pic')->user()->email;
         $role = "pic";
@@ -56,7 +57,7 @@
                 <div class="form-group mb-3">
                     <label for="">PIC</label>
                     @if ($username != NULL)
-                        <input type="hidden" name="pic_id" value="{{ $username }}">
+                        <input type="hidden" name="pic_id" value="{{ $id }}">
                         <input type="text" class="form-control" value="{{ $username }}" disabled>
                     @elseif ($username == NULL)
                         <select name="pic_id" class="form-control" id="">
