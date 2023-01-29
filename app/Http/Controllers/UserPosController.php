@@ -21,8 +21,10 @@ class UserPosController extends Controller
         $role_regional = Auth::guard('user_regionals')->user()->id ?? 0;
         $role_pic = Auth::guard('user_pic')->user()->id ?? 0;
 
+        
+
         if ($role_pic != 0) {
-            $data = UserPosModel::where('pic_id', 1)->paginate(10);
+            $data = UserPosModel::where('pic_id', $role_pic)->paginate(10);
         }else{
             $data = UserPosModel::paginate(10);
         }
