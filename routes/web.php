@@ -8,7 +8,6 @@ use App\Http\Controllers\UserPicController;
 use App\Http\Controllers\UserPosController;
 use App\Http\Controllers\UserRegionalController;
 use Illuminate\Support\Facades\Route;
-use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +55,4 @@ Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name(
 Route::get('register', [CustomAuthController::class, 'register'])->name('register-user');
 Route::post('custom-register', [CustomAuthController::class, 'customRegister'])->name('register.custom'); 
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
+Route::get('reload-captcha', [CustomAuthController::class, 'reloadCaptcha']);

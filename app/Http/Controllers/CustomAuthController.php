@@ -17,9 +17,11 @@ class CustomAuthController extends Controller
       
     public function customLogin(Request $request)
     {
+
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
+            'captcha' => 'required|captcha'
         ]);
    
         $credentials = $request->only('email', 'password');
@@ -40,6 +42,11 @@ class CustomAuthController extends Controller
         }
   
         return redirect("login")->withSuccess('Login details are not valid');
+    }
+
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img()]);
     }
 
     public function register()
