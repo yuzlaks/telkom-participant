@@ -36,7 +36,7 @@
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Data User PIC</h2>
-            @if ($role)
+            @if ($role != 0)
                 <div class="pull-right" style="float:right">
                     <a class="btn btn-success" href="{{ route('user-pic.create') }}"> Create New User</a>
                 </div>

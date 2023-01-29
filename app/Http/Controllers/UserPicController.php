@@ -20,7 +20,7 @@ class UserPicController extends Controller
     public function index()
     {
         $data = UserPicModel::paginate(10);
-        $role = Auth::guard('user_regionals')->user()->id;
+        $role = Auth::guard('user_regionals')->user()->id ?? 0;
         return view('user-pic/index', compact('data', 'role'));
     }
 
