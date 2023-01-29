@@ -39,7 +39,6 @@
                 <div class="form-group mb-3">
                     <label for="">Role</label>
                     <select name="role" class="form-control" id="">
-                        <option value="Admin">Admin</option>
                         <option value="Manager">Manager</option>
                         <option value="Staff">Staff</option>
                     </select>
