@@ -6,6 +6,15 @@
     <li class="breadcrumb-item active">User POS</li>
 @endsection()
 @section('content')
+<?php
+    $username = null;
+    if (!empty(Auth::guard('user_pic')->user()->name)) {
+        $username = Auth::guard('user_pic')->user()->name;
+        $email = Auth::guard('user_pic')->user()->email;
+        $role = "pic";
+    }
+
+?>
 <div class="col-md-8">
     <div class="card">
         <h3 class="card-header">Create Data</h3>
@@ -46,12 +55,17 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="">PIC</label>
-                    <select name="pic_id" class="form-control" id="">
-                        <option value="" selected disabled>-Pilih data-</option>
-                        @foreach ($pic as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
+                    @if ($username != NULL)
+                        <input type="hidden" name="pic_id" value="{{ $username }}">
+                        <input type="text" class="form-control" value="{{ $username }}" disabled>
+                    @elseif ($username == NULL)
+                        <select name="pic_id" class="form-control" id="">
+                            <option value="" selected disabled>-Pilih data-</option>
+                            @foreach ($pic as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    @endif
                 </div>
                 <div class="form-group mb-3">
                     <label for="">Alamat</label>

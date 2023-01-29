@@ -82,6 +82,7 @@ class UserPosController extends Controller
         $url = 'https://telkomregional5.id/shorturl/insert.php';
 
         $txt = "url=" . $host . "/create-customer-from-user-pos/" . $insert->id;
+        // $txt = "url=https://94c0-36-68-219-139.ap.ngrok.io/create-customer-from-user-pos/" . $insert->id;
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POST, 1);
