@@ -15,6 +15,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $role = "";
+
         $userregional = UserRegionalModel::count();
         $userpic      = UserPicModel::count();
         $userpos      = UserPosModel::count();
@@ -22,15 +24,22 @@ class DashboardController extends Controller
     
         $dataUser = "";
 
+        if (!empty(Auth::guard('user_regionals')->user()->id)) {
+            $dataUser = UserRegionalModel::where('id', Auth::guard('user_regionals')->user()->id)->first();
+            $role = "regional";
+        }
+
         if (!empty(Auth::guard('user_pic')->user()->id)) {
             $dataUser = UserPicModel::where('id', Auth::guard('user_pic')->user()->id)->first();
+            $role = "pic";
         }
         
         if (!empty(Auth::guard('user_pos')->user()->id)) {
             $dataUser = UserPosModel::where('id', Auth::guard('user_pos')->user()->id)->first();
+            $role = "pos";
         }
 
-        return view('dashboard', compact('userregional','userpic','userpos','pos','dataUser'));
+        return view('dashboard', compact('userregional','userpic','userpos','pos','dataUser','role'));
     }
 
     public function printBarcode($type, $id)

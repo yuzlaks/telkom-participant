@@ -63,7 +63,6 @@
                         <td>{{ $user->notel }}</td>
                         <td>{{ $user->pic_name }}</td>
                         <td>
-                            @if($username<>$user->nama)
                                 <div class="btn-group" role="group">
                                     <a class="mx-1 btn btn-info" href="{{ route('user-pos.show', $user->id) }}">Show</a>
                                     <a title="Cetak Barcode" class="mx-1 btn btn-warning" href="{{ url('cetak-barcode/user-pos/'.$user->id) }}"><i class="fa fa-print"></i></a>
@@ -74,7 +73,6 @@
                                         <button type="DELETE" class="btn btn-danger">Hapus</button>
                                     </form>
                                 </div>
-                            @endif
                         </td>
                     </tr>
                     @endforeach

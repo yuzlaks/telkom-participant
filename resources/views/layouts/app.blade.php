@@ -161,7 +161,7 @@ if (!empty(Auth::guard('user_pic')->user()->name)) {
                                 <a href="{{ route('user-pos.index') }}" class="nav-link @yield('menu-user-pos')">
                                     <i class="nav-icon fas fa-user-cog"></i>
                                     <p>
-                                        Users POS
+                                        AGENT POS
                                     </p>
                                 </a>
                             </li>
@@ -173,7 +173,7 @@ if (!empty(Auth::guard('user_pic')->user()->name)) {
                             <a href="{{ route('pos.index') }}" class="nav-link @yield('menu-pos')">
                                 <i class="nav-icon fas fa-database"></i>
                                 <p>
-                                    POS
+                                   SALES POS
                                 </p>
                             </a>
                         </li>
@@ -224,7 +224,7 @@ if (!empty(Auth::guard('user_pic')->user()->name)) {
                             <a href="{{ route('user-pos.index') }}" class="nav-link @yield('menu-user-pos')">
                                 <i class="nav-icon fas fa-user-cog"></i>
                                 <p>
-                                    Users POS
+                                    AGENT POS
                                 </p>
                             </a>
                         </li>
@@ -246,7 +246,7 @@ if (!empty(Auth::guard('user_pic')->user()->name)) {
                             <a href="{{ route('pos.index') }}" class="nav-link @yield('menu-pos')">
                         <i class="nav-icon fa fa-cube"></i>
                         <p>
-                            Pos
+                            SALES POS
                         </p>
                         </a>
                         </li>

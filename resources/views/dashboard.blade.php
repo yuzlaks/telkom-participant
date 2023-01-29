@@ -32,7 +32,7 @@
 
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>53</h3>
+                        <h3>{{ $userpic }}</h3>
                         <p>User PIC</p>
                     </div>
                     <div class="icon">
@@ -46,8 +46,8 @@
 
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>44</h3>
-                        <p>User POS</p>
+                        <h3>{{ $userpos }}</h3>
+                        <p>AGENT POS</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
@@ -60,8 +60,8 @@
 
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
-                        <p>Customer</p>
+                        <h3>{{ $pos }}</h3>
+                        <p>SALES POS</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
@@ -72,88 +72,91 @@
 
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Data Saya</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6" style="border-right: 2px solid #e1e1e1">
-                                <table style="border: none">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama</th>
-                                            <td>:</td>
-                                            <td>{{ $dataUser->name ?? $dataUser->nama }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Email</th>
-                                            <td>:</td>
-                                            <td>{{ $dataUser->email }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Nomor Telepon</th>
-                                            <td>:</td>
-                                            <td>{{ $dataUser->notel }}</td>
-                                        </tr>
-                                        <tr>
-                                            @if (!empty($dataUser->regional))
-                                                <th>Regional</th>
+        @if($role != "regional")
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Data Saya</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6" style="border-right: 2px solid #e1e1e1">
+                                    <table style="border: none">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama</th>
                                                 <td>:</td>
-                                                <td>{{ $dataUser->regional }}</td>
+                                                <td>{{ $dataUser->name ?? $dataUser->nama }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Email</th>
+                                                <td>:</td>
+                                                <td>{{ $dataUser->email }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Nomor Telepon</th>
+                                                <td>:</td>
+                                                <td>{{ $dataUser->notel }}</td>
+                                            </tr>
+                                            <tr>
+                                                @if (!empty($dataUser->regional))
+                                                    <th>Regional</th>
+                                                    <td>:</td>
+                                                    <td>{{ $dataUser->regional }}</td>
+                                                    @else
+                                                    <th>PIC</th>
+                                                    <td>:</td>
+                                                    <td>{{ $dataUser->pic_name }}</td>
+                                                @endif
+                                            </tr>
+                                            <tr>
+                                                @if (!empty($dataUser->datel))
+                                                <th>Datel</th>
+                                                <td>:</td>
+                                                <td>{{ $dataUser->datel }}</td>
                                                 @else
-                                                <th>PIC</th>
+                                                <th>Alamat</th>
                                                 <td>:</td>
-                                                <td>{{ $dataUser->pic_name }}</td>
-                                            @endif
-                                        </tr>
-                                        <tr>
-                                            @if (!empty($dataUser->datel))
-                                            <th>Datel</th>
-                                            <td>:</td>
-                                            <td>{{ $dataUser->datel }}</td>
-                                            @else
-                                            <th>Alamat</th>
-                                            <td>:</td>
-                                            <td>{{ $dataUser->alamat }}</td>
-                                            @endif
-                                        </tr>
-                                        <tr>
-                                            @if (!empty($dataUser->witel))
-                                            <th>Witel</th>
-                                            <td>:</td>
-                                            <td>{{ $dataUser->witel }}</td>
-                                            @else
-                                            <th>Kecamatan</th>
-                                            <td>:</td>
-                                            <td>{{ $dataUser->kecamatan }}</td>
-                                            @endif
-                                        </tr>
-                                        <tr>
-                                            @if (!empty($dataUser->kabupaten))
-                                            <th>Kabupaten</th>
-                                            <td>:</td>
-                                            <td>{{ $dataUser->kabupaten }}</td>
-                                            @endif
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                            <div class="col-md-6">
-                                <div>
-                                    <center>
-                                        {!! QrCode::size(300)->generate(url($dataUser->url)) !!}
-                                        {{ $dataUser->url }}
-                                    </center>
+                                                <td>{{ $dataUser->alamat }}</td>
+                                                @endif
+                                            </tr>
+                                            <tr>
+                                                @if (!empty($dataUser->witel))
+                                                <th>Witel</th>
+                                                <td>:</td>
+                                                <td>{{ $dataUser->witel }}</td>
+                                                @else
+                                                <th>Kecamatan</th>
+                                                <td>:</td>
+                                                <td>{{ $dataUser->kecamatan }}</td>
+                                                @endif
+                                            </tr>
+                                            <tr>
+                                                @if (!empty($dataUser->kabupaten))
+                                                <th>Kabupaten</th>
+                                                <td>:</td>
+                                                <td>{{ $dataUser->kabupaten }}</td>
+                                                @endif
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <center>
+                                            {!! QrCode::size(400)->generate(url($dataUser->url)) !!}
+                                            <br><br>
+                                            <i>{{ $dataUser->url }}</i>
+                                        </center>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
 
     </div>
 @endsection

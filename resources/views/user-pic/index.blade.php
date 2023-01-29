@@ -67,7 +67,6 @@
                         <td>{{ $user->datel }}</td>
                         <td>{{ $user->url }}</td>
                         <td>
-                            @if($username<>$user->name)
                                 <div class="btn-group" role="group">
                                     <a class="mx-1 btn btn-info" href="{{ route('user-pic.show', $user->id) }}">Show</a>
                                     <a class="mx-1 btn btn-primary" href="{{ route('user-pic.edit', $user->id) }}">Edit</a>
@@ -77,7 +76,6 @@
                                         <button type="DELETE" class="btn btn-danger">Hapus</button>
                                     </form>
                                 </div>
-                            @endif
                         </td>
                     </tr>
                     @endforeach
