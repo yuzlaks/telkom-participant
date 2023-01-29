@@ -6,6 +6,7 @@ use App\Models\UserPicModel;
 use App\Models\UserPosModel;
 use Illuminate\Http\Request;
 use Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
 class UserPosController extends Controller
@@ -18,7 +19,9 @@ class UserPosController extends Controller
     public function index()
     {
         $data = UserPosModel::paginate(10);
-        return view('user-pos/index', compact('data'));
+        $role_regional = Auth::guard('user_regionals')->user()->id ?? 0;
+        $role_pic = Auth::guard('user_pic')->user()->id ?? 0;
+        return view('user-pos/index', compact('data','role_regional','role_pic'));
     }
 
     /**

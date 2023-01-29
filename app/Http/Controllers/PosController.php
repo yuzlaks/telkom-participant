@@ -17,6 +17,7 @@ class PosController extends Controller
     public function index()
     {
         $data = PosModel::paginate(10);
+        $role = Auth::guard('user_regionals')->user()->id ?? 0;
         return view('pos/index', compact('data'));
     }
 
