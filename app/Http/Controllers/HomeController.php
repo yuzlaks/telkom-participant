@@ -44,7 +44,7 @@ class HomeController extends Controller
         
         if (!empty($request->from_frontend)) {
             Alert::success('Success Title', 'Terima kasih sudah menjadi pelanggan kami.
-            Data Anda sudah kami terima. <br><br>
+            Data Anda sudah kami terima.
             
             Mohon ditunggu, pihak kami akan segera
             menghubungi Anda secepat mungkin.');
