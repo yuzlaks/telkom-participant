@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Hash;
 use Session;
 use App\Models\UserRegionalModel;
+use App\Models\Witel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
@@ -31,8 +32,11 @@ class UserPicController extends Controller
      */
     public function create()
     {
+        $witel = Witel::select('witel')
+                        ->groupBy('witel')
+                        ->get();
         $regional = UserRegionalModel::all();
-        return view('user-pic/create', compact('regional'));
+        return view('user-pic/create', compact('regional', 'witel'));
     }
 
     /**
@@ -152,5 +156,14 @@ class UserPicController extends Controller
     {
         UserPicModel::where('id', $id)->delete();
         return redirect("user-pic")->withErrors(['msg' => 'Berhasil Hapus Data!']);
+    }
+
+    public function getDatel($id_witel)
+    {
+        $datel = Witel::select('datel')
+                        ->groupBy('datel')
+                        ->where('witel', $id_witel)
+                        ->get();
+        return response()->json($datel);
     }
 }

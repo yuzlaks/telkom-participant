@@ -59,26 +59,16 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="">Witel</label>
-                    <select name="witel" class="form-control" id="">
+                    <select name="witel" class="form-control" id="witel">
                         <option value="" selected disabled>-Pilih data-</option>
-                        <option>DENPASAR</option>
-                        <option>JEMBER</option>
-                        <option>KEDIRI</option>
-                        <option>MADIUN</option>
-                        <option>MADURA</option>
-                        <option>MALANG</option>
-                        <option>NTB</option>
-                        <option>NTT</option>
-                        <option>PASURUAN</option>
-                        <option>SIDOARJO</option>
-                        <option>SINGARAJA</option>
-                        <option>SURABAYA SELATAN</option>
-                        <option>SURABAYA UTARA</option>
+                        @foreach ($witel as $item)
+                            <option value="{{ $item->witel }}">{{ $item->witel }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group mb-3">
                     <label for="">Datel</label>
-                    <input type="text" placeholder="Datel" id="datel" class="form-control" name="datel" required autofocus>
+                    <select name="datel" id="datel" class="form-control"></select>
                     @if ($errors->has('datel'))
                     <span class="text-danger">{{ $errors->first('datel') }}</span>
                     @endif
@@ -99,3 +89,26 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        $('#witel').change(function(){
+            $('#datel').html('');
+            var id_witel = $('#witel').val();
+            $.ajax({
+                url : "get-datel/"+id_witel,
+                type : "GET",
+                success:function(res){
+
+                    var option;
+                    $.each(res, function(k,v){
+                        option += `<option>${v.datel}</option>`;
+                    })
+
+                    $('#datel').append(option);
+                    console.log(res);
+                }
+            })
+        })
+    </script>
+@endpush
