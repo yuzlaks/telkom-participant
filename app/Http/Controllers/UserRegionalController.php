@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserRegionalModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserRegionalController extends Controller
@@ -16,7 +17,8 @@ class UserRegionalController extends Controller
     public function index()
     {
         $data = UserRegionalModel::paginate(10);
-        return view('user-regional/index', compact('data'));
+        $role = Auth::guard('user_regionals')->user()->role ?? "";
+        return view('user-regional/index', compact('data','role'));
     }
 
     /**

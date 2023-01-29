@@ -37,9 +37,11 @@
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Data User Regional</h2>
-            <div class="pull-right" style="float:right">
-                <a class="btn btn-success" href="{{ route('user-regional.create') }}"> Create New User</a>
-            </div>
+            @if (Str::lower($role) == "admin")
+                <div class="pull-right" style="float:right">
+                    <a class="btn btn-success" href="{{ route('user-regional.create') }}"> Create New User</a>
+                </div>
+            @endif
         </div>
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
