@@ -51,11 +51,12 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="">Regional</label>
-                    <select name="regional" class="form-control" id="">
+                    <input value="{{ $data->regional }}" type="text" class="form-control" name="regional" readonly required autofocus>
+                    <!-- <select name="regional" class="form-control" id="">
                         @foreach ($regional as $item)
                             <option {{ ($item->regional == $data->regional) ? "selected" : "" }} value="{{ $item->username }}">{{ $item->username }}</option>
                         @endforeach
-                    </select>
+                    </select> -->
                 </div>
 
                 <div class="form-group mb-3">
