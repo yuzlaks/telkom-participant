@@ -17,8 +17,26 @@ class PosController extends Controller
      */
     public function index()
     {
-        $data = PosModel::paginate(10);
-        $role = Auth::guard('user_regionals')->user()->id ?? 0;
+        // untuk pengecekan apakah dia (login) admin
+        $checkRole = Auth::guard('user_regionals')->user()->role ?? 0;
+
+        if ($checkRole == "Admin") {
+            $data = PosModel::paginate(10);
+        }else{
+            $data_regional = Auth::guard('user_regionals')->user()->id ?? 0;
+    
+            $data_pic = Auth::guard('user_pic')->user()->id ?? 0;
+    
+            $data_pos = UserPosModel::where('pic_id', $data_pic)->get();
+            
+            $id = array();
+            foreach ($data_pos as $key => $value_user_pos) {
+                $id[] = $value_user_pos->id;
+            }
+    
+            $data = PosModel::whereIn('pos_id', $id)->paginate(10);
+        }
+
         return view('pos/index', compact('data'));
     }
 
