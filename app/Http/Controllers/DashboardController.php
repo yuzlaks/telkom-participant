@@ -39,6 +39,7 @@ class DashboardController extends Controller
             $role = "pos";
         }
 
+        
         return view('dashboard', compact('userregional','userpic','userpos','pos','dataUser','role'));
     }
 
