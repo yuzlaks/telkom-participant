@@ -17,10 +17,10 @@ class DashboardController extends Controller
     {
         $role = "";
 
-        $userregional = UserRegionalModel::count();
-        $userpic      = UserPicModel::count();
-        $userpos      = UserPosModel::count();
-        $pos          = PosModel::count();
+        $calang         = PosModel::whereNull('progres')->orWhere('progres','!=','PSB sudah aktif')->count();
+        $psb            = PosModel::where('progres', 'PSB sudah aktif')->count();
+        $sc             = PosModel::where('status_offering', 'accept')->count();
+        $fu             = PosModel::where('status_fu', 'belum dihubungi')->count();
     
         $dataUser = "";
 
@@ -39,7 +39,7 @@ class DashboardController extends Controller
             $role = "pos";
         }
 
-        return view('dashboard', compact('userregional','userpic','userpos','pos','dataUser','role'));
+        return view('dashboard', compact('calang','psb','sc','fu','dataUser','role'));
     }
 
     public function printBarcode($type, $id)

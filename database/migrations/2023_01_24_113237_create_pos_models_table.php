@@ -22,11 +22,28 @@ return new class extends Migration
             $table->string('order_email');
             $table->string('notel');
             $table->string('alamat');
-            $table->string('kecamatan');
-            $table->string('kabupaten');
+            $table->integer('provinsi');
+            $table->integer('kabupaten');
+            $table->integer('kecamatan');
+            $table->integer('kelurahan');
             $table->string('tgl_order');
             $table->string('pos_id');
             $table->string('pos_name');
+
+            $table->string('status_fu');
+            $table->string('status_offering')->nullable();
+            // condition : [accept, pending, cancel]
+
+            // if accept : manual input (PIC sesuai pos_id)
+            // dan progress berubah jadi : PSB belum aktif
+            $table->string('no_sc')->nullable();
+            $table->string('progres')->nullable();
+            
+            // dan otomatis status berubah menjadi belum dibayar 
+            // trigger btn bayar => akan berubah jadi sudah bayar
+            // dan otomatis kolom progres berubah menjadi => PSB aktif
+            $table->string('status_bayar')->nullable();
+
             $table->timestamps();
         });
     }

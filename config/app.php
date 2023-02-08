@@ -200,6 +200,7 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
         Mews\Captcha\CaptchaServiceProvider::class,
+        AzisHapidin\IndoRegion\IndoRegionServiceProvider::class,
     ],
 
     /*

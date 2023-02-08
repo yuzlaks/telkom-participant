@@ -18,13 +18,13 @@
 
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{{ $userregional  }}</h3>
-                        <p>User Regional</p>
+                        <h3>{{ $calang  }}</h3>
+                        <p>Calon Pelanggan Baru</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="{{ url('/user-regional') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ url('/pos') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
 
@@ -32,13 +32,13 @@
 
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>{{ $userpic }}</h3>
-                        <p>User PIC</p>
+                        <h3>{{ $psb }}</h3>
+                        <p>Sukses PSB</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="{{ url('/user-pic') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ url('/pos') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
 
@@ -46,13 +46,13 @@
 
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>{{ $userpos }}</h3>
-                        <p>AGENT POS</p>
+                        <h3>{{ $sc }}</h3>
+                        <p>Perlu Input SC</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="{{ url('/user-pos') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ url('/pos') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
 
@@ -60,8 +60,8 @@
 
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>{{ $pos }}</h3>
-                        <p>SALES POS</p>
+                        <h3>{{ $fu }}</h3>
+                        <p>Follow Up Pelanggan</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>

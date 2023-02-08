@@ -27,7 +27,7 @@
                             <thead>
                                 <tr>
                                     <th>Regional</th>
-                                    <td>{{ $data->regional }}</td>
+                                    <td>{{ @$data->regional }}</td>
                                 </tr>
                                 <tr>
                                     <th>Nama POS</th>
@@ -58,12 +58,20 @@
                                     <td>{{ $data->alamat }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Kecamatan</th>
-                                    <td>{{ $data->kecamatan }}</td>
+                                    <th>Provinsi</th>
+                                    <td>{{ $data->provinsi }}</td>
                                 </tr>
                                 <tr>
                                     <th>Kabupaten</th>
                                     <td>{{ $data->kabupaten }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Kecamatan</th>
+                                    <td>{{ $data->kecamatan }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Kelurahan</th>
+                                    <td>{{ $data->kelurahan }}</td>
                                 </tr>
                                 <tr>
                                     <th>Tanggal Order</th>

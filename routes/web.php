@@ -59,3 +59,12 @@ Route::get('reload-captcha', [CustomAuthController::class, 'reloadCaptcha']);
 
 // get witel
 Route::get('get-datel/{id_witel}', [UserPicController::class, 'getDatel']);
+
+// api
+Route::get('provinces', [PosController::class, 'provinces']);
+Route::get('regencies/{provinces_id}', [PosController::class, 'regencies']);
+Route::get('districts/{regencies_id}', [PosController::class, 'districts']);
+Route::get('villages/{districts_id}', [PosController::class, 'villages']);
+
+Route::post('update-status-pos/{id}', [PosController::class, 'updateStatusPos']);
+Route::post('update-no-sc/{id}', [PosController::class, 'updateNoSc']);

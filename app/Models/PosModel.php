@@ -19,8 +19,19 @@ class PosModel extends Model
         'alamat',
         'kecamatan',
         'kabupaten',
+        'provinsi',
+        'kelurahan',
         'tgl_order',
         'pos_id',
-        'pos_name'
+        'pos_name',
+        'status_offering',
+        'no_sc',
+        'progres',
+        'status_bayar'
     ];
+
+    public function provinsi()
+    {
+        return $this->hasOne(Province::class, 'id', 'provinsi');
+    }
 }
