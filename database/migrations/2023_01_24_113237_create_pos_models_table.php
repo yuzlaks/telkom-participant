@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('pos_id');
             $table->string('pos_name');
 
-            $table->string('status_fu');
+            $table->string('status_fu')->nullable();
             $table->string('status_offering')->nullable();
             // condition : [accept, pending, cancel]
 
