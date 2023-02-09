@@ -24,7 +24,7 @@ class PosController extends Controller
         // untuk pengecekan apakah dia (login) admin
         $checkRole = Auth::guard('user_regionals')->user()->role ?? 0;
 
-        if ($checkRole == "Admin") {
+        if (strtoupper($checkRole) == "ADMIN") {
             $data = PosModel::select([
                                         'pos.*',
                                         'provinces.name AS provinsi',
