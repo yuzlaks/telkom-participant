@@ -46,12 +46,20 @@
                                     <td>{{ $data->alamat }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Kecamatan</th>
-                                    <td>{{ $data->kecamatan }}</td>
+                                    <th>Provinsi</th>
+                                    <td>{{ $data->provinsi }}</td>
                                 </tr>
                                 <tr>
                                     <th>Kabupaten</th>
                                     <td>{{ $data->kabupaten }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Kecamatan</th>
+                                    <td>{{ $data->kecamatan }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Kelurahan</th>
+                                    <td>{{ $data->kelurahan }}</td>
                                 </tr>
                                 <tr>
                                     <th>Url</th>

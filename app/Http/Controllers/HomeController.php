@@ -33,8 +33,10 @@ class HomeController extends Controller
             'order_email' => 'required',
             'notel'       => 'required',
             'alamat'      => 'required',
-            'kecamatan'   => 'required',
+            'provinsi'    => 'required',
             'kabupaten'   => 'required',
+            'kecamatan'   => 'required',
+            'kelurahan'   => 'required',
             'pos_id'      => 'required'
         ]);
            
@@ -66,8 +68,10 @@ class HomeController extends Controller
             "order_email" => $data['order_email'],
             "notel"       => $data['notel'],
             "alamat"      => $data['alamat'],
-            "kecamatan"   => $data['kecamatan'],
-            "kabupaten"   => $data['kabupaten'],
+            'provinsi'    => $data['provinsi'],
+            'kabupaten'   => $data['kabupaten'],
+            'kecamatan'   => $data['kecamatan'],
+            'kelurahan'   => $data['kelurahan'],
             "tgl_order"   => date('Y-m-d'),
             "pos_id"      => $data['pos_id'],
             "pos_name"    => $pos->nama

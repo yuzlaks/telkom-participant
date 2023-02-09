@@ -22,10 +22,10 @@ return new class extends Migration
             $table->string('order_email');
             $table->string('notel');
             $table->string('alamat');
-            $table->integer('provinsi');
-            $table->integer('kabupaten');
-            $table->integer('kecamatan');
-            $table->integer('kelurahan');
+            $table->string('provinsi')->nullable();
+            $table->string('kabupaten')->nullable();
+            $table->string('kecamatan')->nullable();
+            $table->string('kelurahan')->nullable();
             $table->string('tgl_order');
             $table->string('pos_id');
             $table->string('pos_name');

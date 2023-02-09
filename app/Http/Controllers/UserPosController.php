@@ -57,8 +57,10 @@ class UserPosController extends Controller
             'notel'     => 'required',
             'pic_id'    => 'required',
             'alamat'    => 'required',
-            'kecamatan' => 'required',
-            'kabupaten' => 'required',
+            'provinsi'    => 'required',
+            'kabupaten'   => 'required',
+            'kecamatan'   => 'required',
+            'kelurahan'   => 'required',
         ]);
 
         $data = $request->all();
@@ -85,8 +87,10 @@ class UserPosController extends Controller
             'pic_id'    => $pic->id,
             'pic_name'  => $pic->name,
             'alamat'    => $data['alamat'],
-            'kecamatan' => $data['kecamatan'],
+            'provinsi'  => $data['provinsi'],
             'kabupaten' => $data['kabupaten'],
+            'kecamatan' => $data['kecamatan'],
+            'kelurahan' => $data['kelurahan'],
             'url'       => ''
         ]);
 
@@ -118,7 +122,18 @@ class UserPosController extends Controller
      */
     public function show($id)
     {
-        $data = UserPosModel::where('id',$id)->first();
+        $data = UserPosModel::select([
+                                'user_pos.*',
+                                'provinces.name AS provinsi',
+                                'regencies.name AS kabupaten',
+                                'districts.name AS kecamatan',
+                                'villages.name AS kelurahan',
+                            ])
+                            ->join('provinces','user_pos.provinsi','=','provinces.id')
+                            ->join('regencies','user_pos.kabupaten','=','regencies.id')
+                            ->join('districts','user_pos.kecamatan','=','districts.id')
+                            ->join('villages','user_pos.kelurahan','=','villages.id')
+                            ->where('user_pos.id',$id)->first();
         return view('user-pos/show', compact('data'));
     }
 
@@ -153,8 +168,10 @@ class UserPosController extends Controller
             'pic_id'    => $pic->id,
             'pic_name'  => $pic->name,
             'alamat'    => $request->alamat,
-            'kecamatan' => $request->kecamatan,
+            'provinsi'  => $request->provinsi,
             'kabupaten' => $request->kabupaten,
+            'kecamatan' => $request->kecamatan,
+            'kelurahan' => $request->kelurahan,
             'url'       => $request->url
         ]);
 

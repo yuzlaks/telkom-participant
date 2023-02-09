@@ -18,8 +18,10 @@ class UserPosModel extends Authenticatable
         'pic_id',
         'pic_name',
         'alamat',
-        'kecamatan',
+        'provinsi',
         'kabupaten',
+        'kecamatan',
+        'kelurahan',
         'url',
         'last_login'
     ];

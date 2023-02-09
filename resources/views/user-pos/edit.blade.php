@@ -57,27 +57,36 @@
                         @endforeach
                     </select>
                 </div>
+                
+                <div class="form-group mb-3">
+                    <label for="">Provinsi</label>
+                    <select class="provinsi select2 form-control p-1" name="provinsi">
+                        <option value="" disabled selected> Pilih Provinsi </option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Kabupaten</label>
+                    <select class="kabupaten select2 form-control p-1" name="kabupaten">
+                        <option value="" disabled selected> Pilih Kabupaten </option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Kecamatan</label>
+                    <select class="kecamatan select2 form-control p-1" name="kecamatan">
+                        <option value="" disabled selected> Pilih Kecamatan </option>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Kelurahan</label>
+                    <select class="kelurahan select2 form-control p-1" name="kelurahan">
+                        <option value="" disabled selected> Pilih Kelurahan </option>
+                    </select>
+                </div>
                 <div class="form-group mb-3">
                     <label for="">Alamat</label>
                     <textarea name="alamat" class="form-control" id="" cols="30" rows="10">{{ $data->alamat }}</textarea>
                     @if ($errors->has('alamat'))
                     <span class="text-danger">{{ $errors->first('alamat') }}</span>
-                    @endif
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Kecamatan</label>
-                    <input value="{{ $data->kecamatan }}" type="text" placeholder="kecamatan" id="kecamatan" class="form-control"
-                        name="kecamatan" required autofocus>
-                    @if ($errors->has('kecamatan'))
-                    <span class="text-danger">{{ $errors->first('kecamatan') }}</span>
-                    @endif
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Kabupaten</label>
-                    <input value="{{ $data->kabupaten }}" type="text" placeholder="kabupaten" id="kabupaten" class="form-control"
-                        name="kabupaten" required autofocus>
-                    @if ($errors->has('kabupaten'))
-                    <span class="text-danger">{{ $errors->first('kabupaten') }}</span>
                     @endif
                 </div>
                 <div class="form-group mb-3">
@@ -96,3 +105,75 @@
     </div>
 </div>
 @endsection
+@push('js')
+    <script>
+        $('.select2').select2();
+
+        $.ajax({
+            type: "GET",
+            url: "{{ url('provinces') }}",
+            dataType: "json",
+            success: function(res) {
+
+                $.each(res, function(k, v) {
+                    var newOption = new Option(v.name, v.id, false, false);
+                    $('.provinsi').append(newOption);
+                });
+
+            }
+        });
+
+        $('.provinsi').change(function() {
+
+            $('.kabupaten').html('');
+
+            $.ajax({
+                type: "GET",
+                url: "{{ url('regencies') }}" + '/' + $(this).val(),
+                dataType: "json",
+                success: function(res) {
+
+                    $.each(res, function(k, v) {
+                        var newOption = new Option(v.name, v.id, false, false);
+                        $('.kabupaten').append(newOption);
+                    });
+
+                }
+            });
+        });
+
+        $('.kabupaten').change(function() {
+
+            $('.kecamatan').html('');
+
+            $.ajax({
+                type: "GET",
+                url: "{{ url('districts') }}" + '/' + $(this).val(),
+                dataType: "json",
+                success: function(res) {
+
+                    $.each(res, function(k, v) {
+                        var newOption = new Option(v.name, v.id, false, false);
+                        $('.kecamatan').append(newOption);
+                    });
+
+                }
+            });
+        });
+        $('.kecamatan').change(function() {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('villages') }}" + '/' + $(this).val(),
+                dataType: "json",
+                success: function(res) {
+                    
+                    $('.kelurahan').html('');
+                    $.each(res, function(k, v) {
+                        $('.kelurahan').append(new Option(v.name, v.id, true, true));
+                    });
+
+                }
+            });
+        });
+    </script>
+@endpush

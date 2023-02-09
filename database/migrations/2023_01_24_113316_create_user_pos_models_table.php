@@ -22,8 +22,10 @@ return new class extends Migration
             $table->string('pic_id')->nullable();
             $table->string('pic_name')->nullable();
             $table->string('alamat')->nullable();
-            $table->string('kecamatan')->nullable();
+            $table->string('provinsi')->nullable();
             $table->string('kabupaten')->nullable();
+            $table->string('kecamatan')->nullable();
+            $table->string('kelurahan')->nullable();
             $table->string('url')->nullable();
             $table->date('last_login')->nullable();
             $table->rememberToken();
