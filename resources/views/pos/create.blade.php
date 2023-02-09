@@ -152,7 +152,7 @@
 
                     $.each(res, function(k, v) {
                         var newOption = new Option(v.name, v.id, false, false);
-                        $('.kabupaten').append(newOption).trigger('change');
+                        $('.kabupaten').append(newOption);
                     });
 
                 }
@@ -171,7 +171,7 @@
 
                     $.each(res, function(k, v) {
                         var newOption = new Option(v.name, v.id, false, false);
-                        $('.kecamatan').append(newOption).trigger('change');
+                        $('.kecamatan').append(newOption);
                     });
 
                 }
@@ -186,7 +186,7 @@
                     
                     $('.kelurahan').html('');
                     $.each(res, function(k, v) {
-                        $('.kelurahan').append(new Option(v.name, v.id, true, true)).trigger('change');
+                        $('.kelurahan').append(new Option(v.name, v.id, true, true));
                     });
 
                 }
