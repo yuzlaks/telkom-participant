@@ -167,6 +167,16 @@ if (!empty(Auth::guard('user_pic')->user()->name)) {
                                 </a>
                             </li>
                         <?php } ?>
+                        <?php if (!empty(Auth::guard('user_pos')->user()->nama) || !empty(Auth::guard('user_pic')->user()->name) || !empty(Auth::guard('user_regionals')->user()->username)) { ?>
+                            <li class="nav-item">
+                                <a href="{{ route('materi-promosi.index') }}" class="nav-link @yield('menu-materi-promosi')">
+                                    <i class="nav-icon fas fa-user-cog"></i>
+                                    <p>
+                                        Materi Promosi
+                                    </p>
+                                </a>
+                            </li>
+                        <?php } ?>
 
                         <li class="nav-header">Transaction</li>
 

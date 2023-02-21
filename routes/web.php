@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MateriPromosiController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\UserPicController;
 use App\Http\Controllers\UserPosController;
@@ -38,6 +39,9 @@ Route::middleware('CustomAccess')->group(function(){
 
     // pos
     Route::resource('pos', PosController::class);
+
+    // materi promosi
+    Route::resource('materi-promosi', MateriPromosiController::class);
 
     // ajax get regional from pic
     Route::get('pos/get_regional/{pos_id}', [PosController::class, 'getRegional']);
