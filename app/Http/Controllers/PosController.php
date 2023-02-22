@@ -118,6 +118,15 @@ class PosController extends Controller
         return response()->json("Berhasil");
     }
 
+    public function updateStatusHubungi($id)
+    {
+        PosModel::where('id', $id)->update([
+            'status_fu' => 'sudah dihubungi'
+        ]);
+
+        return response()->json("Berhasil");
+    }
+
     public function provinces()
     {
         return Province::all();

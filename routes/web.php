@@ -72,3 +72,4 @@ Route::get('villages/{districts_id}', [PosController::class, 'villages']);
 
 Route::post('update-status-pos/{id}', [PosController::class, 'updateStatusPos']);
 Route::post('update-no-sc/{id}', [PosController::class, 'updateNoSc']);
+Route::post('update-status-hubungi/{id}', [PosController::class, 'updateStatusHubungi']);

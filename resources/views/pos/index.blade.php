@@ -38,6 +38,7 @@
                             <th>Kecamatan</th>
                             <th>Kabupaten</th>
                             <th>Provinsi</th>
+                            <th>Status FU</th>
                             <th>Status Offering</th>
                             <th>No SC</th>
                             <th>Progres</th>
@@ -57,7 +58,7 @@
                                 <td>
                                     {{ $user->notel }}
                                     <hr>
-                                    <a target="_blank" href="https://wa.me/<?= str_replace('08','62', $user->notel) ?>" class="btn btn-success btn-sm">
+                                    <a data-id="{{ $user->id }}" target="_blank" href="https://wa.me/<?= str_replace('08','62', $user->notel) ?>" class="btn btn-success btn-sm hubungi">
                                         Hubungi
                                     </a>
                                 </td>
@@ -65,6 +66,7 @@
                                 <td>{{ $user->kecamatan }}</td>
                                 <td>{{ $user->kabupaten }}</td>
                                 <td>{{ $user->provinsi }}</td>
+                                <td>{{ $user->status_fu }}</td>
                                 <td>
                                     @if ($user->status_fu == 'sudah dihubungi')
                                         <center>
@@ -194,6 +196,24 @@
                 data: {
                     no_sc: no_sc
                 },
+                success: function(res) {
+                    Swal.fire(
+                        'Berhasil!',
+                        'Data berhasil diupdate',
+                        'success'
+                    );
+
+                    location.reload();
+                }
+            })
+        });
+
+        $('body').on('click', '.hubungi', function() {
+            var id = $(this).data('id');
+            
+            $.ajax({
+                url: "{{ url('update-status-hubungi') }}" + '/' + id,
+                type: "POST",
                 success: function(res) {
                     Swal.fire(
                         'Berhasil!',
