@@ -54,7 +54,13 @@
                                 <td>{{ $user->datel }}</td>
                                 <td>{{ $user->order_name }}</td>
                                 <td>{{ $user->order_email }}</td>
-                                <td>{{ $user->notel }}</td>
+                                <td>
+                                    {{ $user->notel }}
+                                    <hr>
+                                    <a target="_blank" href="https://wa.me/<?= str_replace('08','62', $user->notel) ?>" class="btn btn-success btn-sm">
+                                        Hubungi
+                                    </a>
+                                </td>
                                 <td>{{ $user->kelurahan }}</td>
                                 <td>{{ $user->kecamatan }}</td>
                                 <td>{{ $user->kabupaten }}</td>
