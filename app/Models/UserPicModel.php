@@ -18,6 +18,7 @@ class UserPicModel extends Authenticatable
         'regional',
         'witel',
         'datel',
+        'foto_profil',
         'url',
         'last_login',
     ];

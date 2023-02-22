@@ -10,7 +10,7 @@
     <div class="card">
         <h3 class="card-header">Create Data</h3>
         <div class="card-body">
-            <form action="{{ route('user-pic.store') }}" method="POST">
+            <form action="{{ route('user-pic.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group mb-3">
                     <label for="">Name</label>
@@ -38,6 +38,13 @@
                     <input type="text" placeholder="Nomor Telepon" id="notel" class="form-control" name="notel" required autofocus>
                     @if ($errors->has('notel'))
                     <span class="text-danger">{{ $errors->first('notel') }}</span>
+                    @endif
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Foto Profil</label>
+                    <input type="file" placeholder="Foto Profil" id="foto_profil" class="form-control" name="foto_profil" required autofocus>
+                    @if ($errors->has('foto_profil'))
+                    <span class="text-danger">{{ $errors->first('foto_profil') }}</span>
                     @endif
                 </div>
                 <!-- <div class="form-group mb-3">

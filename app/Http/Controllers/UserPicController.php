@@ -67,15 +67,20 @@ class UserPicController extends Controller
     {
         $host = URL::to('/');
 
+        $file = $data['foto_profil'];
+        $tujuan_upload = public_path('uploads');
+        $file->move($tujuan_upload,$file->getClientOriginalName());
+
         $insert = UserPicModel::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => Hash::make($data['password']),
-            'notel'    => $data['notel'],
-            'regional' => 'DIVRE 5',
-            'witel'    => $data['witel'],
-            'datel'    => $data['datel'],
-            'url'      => ''
+            'name'         => $data['name'],
+            'email'        => $data['email'],
+            'password'     => Hash::make($data['password']),
+            'notel'        => $data['notel'],
+            'regional'     => 'DIVRE 5',
+            'witel'        => $data['witel'],
+            'datel'        => $data['datel'],
+            'foto_profil' => $file->getClientOriginalName(),
+            'url'          => ''
         ]);
 
         $url = 'https://telkomregional5.id/shorturl/insert.php';
@@ -135,15 +140,26 @@ class UserPicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        UserPicModel::where('id', $id)->update([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            'notel'    => $request->notel,
-            'regional' => $request->regional,
-            'witel'    => $request->witel,
-            'datel'    => $request->datel,
-            'url'      => $request->url,
+
+        $query = UserPicModel::where('id', $id);
+
+        $file = $request->foto_profil;
+
+        if (empty($request->foto_profil)) {
+            $old = $query->first();
+            $file = $old->foto_profil;
+        }
+
+        $query->update([
+            'name'        => $request->name,
+            'email'       => $request->email,
+            'password'    => Hash::make($request->password),
+            'notel'       => $request->notel,
+            'regional'    => $request->regional,
+            'witel'       => $request->witel,
+            'datel'       => $request->datel,
+            'foto_profil' => $file,
+            'url'         => $request->url,
         ]);
 
         return redirect("user-pic")->withErrors(['msg' => 'Berhasil Update Data!']);

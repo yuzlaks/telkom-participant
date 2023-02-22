@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('witel')->nullable();
             $table->string('datel')->nullable();
             $table->string('url')->nullable();
+            $table->string('foto_profil')->nullable();
             $table->string('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();

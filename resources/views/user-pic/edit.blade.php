@@ -50,6 +50,15 @@
                     @endif
                 </div>
                 <div class="form-group mb-3">
+                    <img src="{{ asset('uploads/'.@$data->foto_profil) }}" alt="
+                    Empty" width="200px"> <br>
+                    <label for="">Foto Profil</label>
+                    <input type="file" placeholder="Foto Profil" id="foto_profil" class="form-control" name="foto_profil" autofocus>
+                    @if ($errors->has('foto_profil'))
+                    <span class="text-danger">{{ $errors->first('foto_profil') }}</span>
+                    @endif
+                </div>
+                <div class="form-group mb-3">
                     <label for="">Regional</label>
                     <input value="{{ $data->regional }}" type="text" class="form-control" name="regional" readonly required autofocus>
                     <!-- <select name="regional" class="form-control" id="">

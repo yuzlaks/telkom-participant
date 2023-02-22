@@ -26,6 +26,12 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th colspan="2">
+                                        <img src="{{ asset('uploads/' . @$data->foto_profil) }}" width="200px"
+                                            alt="Empty">
+                                    </th>
+                                </tr>
+                                <tr>
                                     <th>Nama</th>
                                     <td>{{ $data->name }}</td>
                                 </tr>
