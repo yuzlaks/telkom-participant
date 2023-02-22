@@ -118,6 +118,16 @@ class PosController extends Controller
         return response()->json("Berhasil");
     }
 
+    public function updateStatusBayar(Request $request, $id)
+    {
+        PosModel::where('id', $id)->update([
+            'status_bayar' => $request->status,
+            'progres'      => 'PSB aktif',
+        ]);
+
+        return response()->json("Berhasil");
+    }
+
     public function updateStatusHubungi($id)
     {
         PosModel::where('id', $id)->update([

@@ -133,7 +133,18 @@
                                     </div>
                                 </td>
                                 <td>{{ $user->progres }}</td>
-                                <td>{{ $user->status_bayar }}</td>
+                                <td>
+                                    @if ($user->status_bayar == 'Belum bayar')
+                                        <select name="" data-id="{{ $user->id }}" id="status_bayar"
+                                            class="form-control">
+                                            <option disabled selected>- Pilih Status -</option>
+                                            <option {{ ($user->status_bayar == 'Belum bayar') ? 'selected' : '' }} value="Belum bayar">Belum bayar</option>
+                                            <option {{ ($user->status_bayar == 'Sudah dibayar') ? 'selected' : '' }} value="Sudah dibayar">Sudah dibayar</option>
+                                        </select>
+                                        @else
+                                        <div class="badge badge-success mb-1 text-uppercase">Sudah dibayar</div>
+                                    @endif
+                                </td>
                                 {{-- <td>
                                     <div class="btn-group" role="group">
 
@@ -170,6 +181,28 @@
 
             $.ajax({
                 url: "{{ url('update-status-pos') }}" + '/' + id,
+                type: "POST",
+                data: {
+                    status: status
+                },
+                success: function(res) {
+                    Swal.fire(
+                        'Berhasil!',
+                        'Data berhasil diupdate',
+                        'success'
+                    );
+
+                    location.reload();
+                }
+            })
+        });
+
+        $('body').on('change', '#status_bayar', function() {
+            var id = $(this).data('id');
+            var status = $(this).val();
+
+            $.ajax({
+                url: "{{ url('update-status-bayar') }}" + '/' + id,
                 type: "POST",
                 data: {
                     status: status
