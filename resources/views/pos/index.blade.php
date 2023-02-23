@@ -80,7 +80,7 @@
                                                 @if ($user->status_offering != 'cancel')
                                                     <select name="" data-id="{{ $user->id }}" id="status_offering"
                                                         class="form-control">
-                                                        <option disabled selected>- Pilih Status -</option>
+                                                        <option selected value="null">- Pilih Status -</option>
                                                         <option value="accept">accept</option>
                                                         @if ($user->status_offering != 'pending') 
                                                             <option value="pending">pending</option>
@@ -179,22 +179,25 @@
             var id = $(this).data('id');
             var status = $(this).val();
 
-            $.ajax({
-                url: "{{ url('update-status-pos') }}" + '/' + id,
-                type: "POST",
-                data: {
-                    status: status
-                },
-                success: function(res) {
-                    Swal.fire(
-                        'Berhasil!',
-                        'Data berhasil diupdate',
-                        'success'
-                    );
+            if (status != "null") {
+                $.ajax({
+                    url: "{{ url('update-status-pos') }}" + '/' + id,
+                    type: "POST",
+                    data: {
+                        status: status
+                    },
+                    success: function(res) {
+                        Swal.fire(
+                            'Berhasil!',
+                            'Data berhasil diupdate',
+                            'success'
+                        );
 
-                    location.reload();
-                }
-            })
+                        location.reload();
+                    }
+                })                
+            }
+
         });
 
         $('body').on('change', '#status_bayar', function() {
