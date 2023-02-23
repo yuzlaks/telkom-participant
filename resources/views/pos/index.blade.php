@@ -58,7 +58,7 @@
                                 <td>
                                     {{ $user->notel }}
                                     <hr>
-                                    <a data-id="{{ $user->id }}" target="_blank" href="https://wa.me/<?= str_replace('08','62', $user->notel) ?>" class="btn btn-success btn-sm hubungi">
+                                    <a data-id="{{ $user->id }}" target="_blank" href="https://wa.me/<?= str_replace('08','628', $user->notel) ?>" class="btn btn-success btn-sm hubungi">
                                         Hubungi
                                     </a>
                                 </td>
