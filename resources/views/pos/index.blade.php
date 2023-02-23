@@ -134,15 +134,17 @@
                                 </td>
                                 <td>{{ $user->progres }}</td>
                                 <td>
-                                    @if ($user->status_bayar == 'Belum bayar')
-                                        <select name="" data-id="{{ $user->id }}" id="status_bayar"
-                                            class="form-control">
-                                            <option disabled selected>- Pilih Status -</option>
-                                            <option {{ ($user->status_bayar == 'Belum bayar') ? 'selected' : '' }} value="Belum bayar">Belum bayar</option>
-                                            <option {{ ($user->status_bayar == 'Sudah dibayar') ? 'selected' : '' }} value="Sudah dibayar">Sudah dibayar</option>
-                                        </select>
-                                        @else
-                                        <div class="badge badge-success mb-1 text-uppercase">Sudah dibayar</div>
+                                    @if (!empty($user->status_bayar))
+                                        @if ($user->status_bayar == 'Belum bayar')
+                                            <select name="" data-id="{{ $user->id }}" id="status_bayar"
+                                                class="form-control">
+                                                <option disabled selected>- Pilih Status -</option>
+                                                <option {{ ($user->status_bayar == 'Belum bayar') ? 'selected' : '' }} value="Belum bayar">Belum bayar</option>
+                                                <option {{ ($user->status_bayar == 'Sudah dibayar') ? 'selected' : '' }} value="Sudah dibayar">Sudah dibayar</option>
+                                            </select>
+                                            @else
+                                            <div class="badge badge-success mb-1 text-uppercase">Sudah dibayar</div>
+                                        @endif  
                                     @endif
                                 </td>
                                 {{-- <td>
