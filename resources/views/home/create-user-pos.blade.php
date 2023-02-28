@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -24,7 +25,7 @@
             </div>
             @endif
             <div class="card-body">
-                <form action="{{ route('user-pos.store') }}" method="POST">
+                <form action="{{ url('store-user-pos') }}" method="POST">
                     @csrf
                     <input type="hidden" name="from_frontend" value="1">
                     <div class="form-group mb-3">
@@ -61,24 +62,34 @@
                         <input class="form-control" readonly type="text" name="pic_name" value="{{ $pic->name }}">
                     </div>
                     <div class="form-group mb-3">
+                        <label for="">Provinsi</label>
+                        <select class="provinsi select2 form-control p-1" name="provinsi">
+                            <option value="" disabled selected> Pilih Provinsi </option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="">Kabupaten</label>
+                        <select class="kabupaten select2 form-control p-1" name="kabupaten">
+                            <option value="" disabled selected> Pilih Kabupaten </option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="">Kecamatan</label>
+                        <select class="kecamatan select2 form-control p-1" name="kecamatan">
+                            <option value="" disabled selected> Pilih Kecamatan </option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="">Kelurahan</label>
+                        <select class="kelurahan select2 form-control p-1" name="kelurahan">
+                            <option value="" disabled selected> Pilih Kelurahan </option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
                         <label for="">Alamat</label>
                         <textarea name="alamat" class="form-control" id="" cols="30" rows="10"></textarea>
                         @if ($errors->has('alamat'))
                         <span class="text-danger">{{ $errors->first('alamat') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="">Kecamatan</label>
-                        <input type="text" placeholder="kecamatan" id="kecamatan" class="form-control" name="kecamatan" required autofocus>
-                        @if ($errors->has('kecamatan'))
-                        <span class="text-danger">{{ $errors->first('kecamatan') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="">Kabupaten</label>
-                        <input type="text" placeholder="kabupaten" id="kabupaten" class="form-control" name="kabupaten" required autofocus>
-                        @if ($errors->has('kabupaten'))
-                        <span class="text-danger">{{ $errors->first('kabupaten') }}</span>
                         @endif
                     </div>
                     <div class="d-grid mx-auto mt-3">
@@ -90,4 +101,76 @@
     </div>
 </body>
 @include('sweetalert::alert')
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $('.select2').select2();
+
+    $.ajax({
+        type: "GET",
+        url: "{{ url('provinces') }}",
+        dataType: "json",
+        success: function(res) {
+
+            $.each(res, function(k, v) {
+                var newOption = new Option(v.name, v.id, false, false);
+                $('.provinsi').append(newOption);
+            });
+
+        }
+    });
+
+    $('.provinsi').change(function() {
+
+        $('.kabupaten').html('');
+
+        $.ajax({
+            type: "GET",
+            url: "{{ url('regencies') }}" + '/' + $(this).val(),
+            dataType: "json",
+            success: function(res) {
+
+                $.each(res, function(k, v) {
+                    var newOption = new Option(v.name, v.id, false, false);
+                    $('.kabupaten').append(newOption);
+                });
+
+            }
+        });
+    });
+
+    $('.kabupaten').change(function() {
+
+        $('.kecamatan').html('');
+
+        $.ajax({
+            type: "GET",
+            url: "{{ url('districts') }}" + '/' + $(this).val(),
+            dataType: "json",
+            success: function(res) {
+
+                $.each(res, function(k, v) {
+                    var newOption = new Option(v.name, v.id, false, false);
+                    $('.kecamatan').append(newOption);
+                });
+
+            }
+        });
+    });
+    $('.kecamatan').change(function() {
+        $.ajax({
+            type: "GET",
+            url: "{{ url('villages') }}" + '/' + $(this).val(),
+            dataType: "json",
+            success: function(res) {
+
+                $('.kelurahan').html('');
+                $.each(res, function(k, v) {
+                    $('.kelurahan').append(new Option(v.name, v.id, true, true));
+                });
+
+            }
+        });
+    });
+</script>
 </html>

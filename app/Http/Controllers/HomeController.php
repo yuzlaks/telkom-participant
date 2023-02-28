@@ -7,6 +7,8 @@ use App\Models\UserPosModel;
 use Illuminate\Http\Request;
 Use Alert;
 use App\Models\PosModel;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 
 class HomeController extends Controller
 {
@@ -76,5 +78,69 @@ class HomeController extends Controller
             "pos_id"      => $data['pos_id'],
             "pos_name"    => $pos->nama
         ]);
+    }  
+
+    public function storeUserPos(Request $request)
+    {
+        $request->validate([
+            'email'     => 'required|email|unique:user_pos',
+            'password'  => 'required|min:6',
+            'notel'     => 'required',
+            'pic_id'    => 'required',
+            'alamat'    => 'required',
+            'provinsi'    => 'required',
+            'kabupaten'   => 'required',
+            'kecamatan'   => 'required',
+            'kelurahan'   => 'required',
+        ]);
+
+        $data = $request->all();
+
+        $check = $this->saveDataUserPos($data);
+
+        if (!empty($request->from_frontend)) {
+            return redirect()->back()->withErrors(['msg' => 'Simpan Berhasil!']);
+        }else{
+            return redirect("user-pos")->withErrors(['msg' => 'Simpan Berhasil!']);
+        }
+         
+    }
+
+    public function saveDataUserPos(array $data)
+    {
+        $host = URL::to('/');
+        $insert = UserPosModel::create([
+            'nama'      => $data['name'],
+            'email'     => $data['email'],
+            'password'  => Hash::make($data['password']),
+            'notel'     => $data['notel'],
+            'pic_id'    => $data['pic_id'],
+            'pic_name'  => $data['pic_name'],
+            'alamat'    => $data['alamat'],
+            'provinsi'  => $data['provinsi'],
+            'kabupaten' => $data['kabupaten'],
+            'kecamatan' => $data['kecamatan'],
+            'kelurahan' => $data['kelurahan'],
+            'url'       => ''
+        ]);
+
+        $url = 'https://telkomregional5.id/shorturl/insert.php';
+
+        $txt = "url=" . $host . "/create-customer-from-user-pos/" . $insert->id;
+        // $txt = "url=https://94c0-36-68-219-139.ap.ngrok.io/create-customer-from-user-pos/" . $insert->id;
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $txt);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $a = (array) json_decode($result);
+        // after that, update column url
+        UserPosModel::where('id', $insert->id)->update([
+            'url' => $a["link"]
+        ]);
+
     }  
 }

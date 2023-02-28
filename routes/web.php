@@ -50,6 +50,7 @@ Route::middleware('CustomAccess')->group(function(){
 
 // dynamic QRCode
 Route::get('create-user-pos-from-user-pic/{referal_pic}', [HomeController::class, 'createUserPos']);
+Route::post('store-user-pos', [HomeController::class, 'storeUserPos']);
 
 Route::get('create-customer-from-user-pos/{referal_pos}', [HomeController::class, 'createUserCustomer']);
 Route::post('store-customer', [HomeController::class, 'storeCustomer']);
